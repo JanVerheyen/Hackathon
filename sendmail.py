@@ -8,7 +8,7 @@ from email import Encoders
 
 def mail():
     #Set up crap for the attachments
-    files = "/Doormen"
+    files = "Doormen/"
     filenames = [os.path.join(files, f) for f in os.listdir(files)]
     filenames = filenames[-5:]
     #print filenames
@@ -41,6 +41,6 @@ def mail():
     mailServer.starttls()
     mailServer.ehlo()
     mailServer.login(gmail_user, gmail_pwd)
-    mailServer.sendmail(gmail_user, to, msg.as_string())
+    mailServer.sendmail(gmail_user, recipients, msg.as_string())
     # Should be mailServer.quit(), but that crashes...
     mailServer.close()

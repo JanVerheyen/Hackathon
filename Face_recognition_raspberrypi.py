@@ -3,7 +3,7 @@ from picamera import PiCamera
 import cv2
 import time
 import RPi.GPIO as GPIO
-import sendmail
+from sendmail import mail
 
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)
@@ -47,7 +47,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
                 take_foto=True
                 i += 1
                 j += 1
-        cv2.imwrite('/Doormen/Doorman'+str(i)+'.png',image)
+        cv2.imwrite('Doormen/Doorman'+str(i)+'.png',image)
         take_foto = False
     else :
         for (x,y,w,h) in faces:
