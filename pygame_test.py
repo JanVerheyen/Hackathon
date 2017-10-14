@@ -36,27 +36,27 @@ screen = pg.display.set_mode(reso)
 pg.display.toggle_fullscreen()
 
 running = True
-
+screen.fill((255, 255, 255))
+pg.display.flip()
 while running:
     for event in pg.event.get():
                 if (event.type == pg.QUIT):
                     running = False
     if (not GPIO.input(27)):
         running = False
-    if (not GPIO.input(23)):
+    if (not GPIO.input(17)):
         with picamera.PiCamera() as camera:
             camera.resolution = (1024, 768)
             #camera.start_preview()
     # Camera warm-up time
-            sleep(2)
+            sleep(1)
             camera.capture('foo.jpg', resize=(320, 240))
         camera_cap = pg.image.load('foo.jpg')
         screen.blit(camera_cap, (25,0))
         pg.display.flip()
-        sleep(2)
         
     
-    screen.fill((255, 255, 255))
+    
     
     screen.blit(power_button, (5,0))
     screen.blit(lock_button, (5,60))
