@@ -31,6 +31,7 @@ arrow_button = scale_icon('Arrow.png')
 
 reso = (320,240)
 screen = pg.display.set_mode(reso)
+pg.toggle_fullscreen()
 
 running = True
 
