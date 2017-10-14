@@ -36,8 +36,10 @@ running = True
 
 while running:
     for event in pg.event.get():
-                if (event.type == pg.QUIT) or (not GPIO.input(27)):
+                if (event.type == pg.QUIT):
                     running = False
+    if (not GPIO.input(27)):
+        running = False
     
     screen.fill((255, 255, 255))
     
