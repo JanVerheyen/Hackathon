@@ -5,9 +5,9 @@ import time
 
 
 camera = PiCamera()
-camera.resolution = (320, 240)
+camera.resolution = (1920, 1080)
 camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(320, 240))
+rawCapture = PiRGBArray(camera, size=(1920, 1080))
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
  
@@ -16,7 +16,7 @@ time.sleep(0.1)
  
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    # grab the raw NumPy array representing the image, then initialize the timestamp
+    # Grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
     
@@ -29,14 +29,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
          roi_gray = gray[y:y+h, x:x+w]
          roi_color = image[y:y+h, x:x+w]
          
-    # show the frame
-    cv2.imshow("Doorcam", image)
+    # Show the frame
+    image_scaled = cv2.resize(image,(320,240))
+    cv2.imshow("Doorcam", image_scaled)
     key = cv2.waitKey(1) & 0xFF
      
-    # clear the stream in preparation for the next frame
+    # Clear the stream in preparation for the next frame
     rawCapture.truncate(0)
      
-    # if the `q` key was pressed, break from the loop
+    # If the `q` key was pressed, break from the loop
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
         
