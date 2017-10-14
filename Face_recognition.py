@@ -4,8 +4,8 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 1280) #WIDTH
 cap.set(4, 720) #HEIGHT
 
-face_cascade = cv2.CascadeClassifier('C:\Users\janve_000\Desktop\opencv\sources\data\haarcascades\haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('C:\Users\janve_000\Desktop\opencv\sources\data\haarcascades\haarcascade_eye.xml')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
 while(True):
     # Capture frame-by-frame
