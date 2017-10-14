@@ -8,6 +8,8 @@ Created on Sun Oct 15 06:14:16 2017
 import pygame as pg
 import os
 import RPi.GPIO as GPIO
+import picamera
+from time import sleep
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.IN, pull_up_down = GPIO.PUD_UP)
@@ -31,7 +33,7 @@ arrow_button = scale_icon('Arrow.png')
 
 reso = (320,240)
 screen = pg.display.set_mode(reso)
-pg.toggle_fullscreen()
+pg.display.toggle_fullscreen()
 
 running = True
 
@@ -41,6 +43,18 @@ while running:
                     running = False
     if (not GPIO.input(27)):
         running = False
+    if (not GPIO.input(23)):
+        with picamera.PiCamera() as camera:
+            camera.resolution = (1024, 768)
+            #camera.start_preview()
+    # Camera warm-up time
+            sleep(2)
+            camera.capture('foo.jpg', resize=(320, 240))
+        camera_cap = pg.image.load('foo.jpg')
+        screen.blit(camera_cap, (25,0))
+        pg.display.flip()
+        sleep(2)
+        
     
     screen.fill((255, 255, 255))
     
