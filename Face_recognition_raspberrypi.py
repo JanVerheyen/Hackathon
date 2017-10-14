@@ -3,6 +3,7 @@ from picamera import PiCamera
 import cv2
 import time
 import RPi.GPIO as GPIO
+import sendmail
 
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)
@@ -18,7 +19,7 @@ rawCapture = PiRGBArray(camera, size=camera.resolution)
 
 # Initialise criteria for picture taking
 take_foto = False
-wait_sec = 5
+wait_sec = 60
 i = 0
 j = 0 
 
@@ -38,12 +39,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     
     # Take foto when createria are met
     if take_foto==True and j<6:
-        cv2.imwrite('Doormen\Doorman'+str(i)+'.png',image)
+        cv2.imwrite('/Doormen/Doorman'+str(i)+'.png',image)
         take_foto = False
     
     if (sec%wait_sec) == 0 and j == 6:
         sec_prev = sec
         j = 0
+        # Send dat mail
+        mail()
     
     # Display the resulting frame
     for (x,y,w,h) in faces:
