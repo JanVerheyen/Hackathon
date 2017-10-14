@@ -7,13 +7,13 @@ Created on Sun Oct 15 06:14:16 2017
 
 import pygame as pg
 import os
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setup(22, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-#GPIO.setup(27, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-#GPIO.setup(17, GPIO.IN, pull_up_down = GPIO.PUD_UP)
-#GPIO.setup(23, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(22, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(27, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(17, GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(23, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 def scale_icon(image_name):
     im_dir = "Icons/"
@@ -37,7 +37,7 @@ clock = pg.time.Clock()
 
 while running:
     for event in pg.event.get():
-                if event.type == pg.QUIT:
+                if (event.type == pg.QUIT) or (not GPIO.input(27)):
                     running = False
     
     screen.fill((255, 255, 255))
