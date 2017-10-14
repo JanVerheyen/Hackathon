@@ -8,7 +8,7 @@ from email import Encoders
 
 def mail():
     #Set up crap for the attachments
-    files = "Doormen/"
+    files = "/Doormen"
     filenames = [os.path.join(files, f) for f in os.listdir(files)]
     filenames = filenames[-5:]
     #print filenames
