@@ -2,6 +2,12 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2
 import time
+import RPi.GPIO as GPIO
+
+# Initialise GPIO
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 # Initialise camera
@@ -57,6 +63,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     rawCapture.truncate(0)
      
     # If the `q` key was pressed, break from the loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if (not GPIO.input(22)):
         break
         
