@@ -3,7 +3,7 @@ from picamera import PiCamera
 import cv2
 import time
 import RPi.GPIO as GPIO
-from sendmail import mail
+import sendmail
 
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)
@@ -39,25 +39,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     
     # Take foto when createria are met
     if take_foto==True and j<6:
-        for (x,y,w,h) in faces:
-            cv2.rectangle(image,(x,y),(x+w,y+h),(0,0,255),4)
-            roi_gray = gray[y:y+h, x:x+w]
-            roi_color = image[y:y+h, x:x+w]
-            if h>50 and j<6:
-                take_foto=True
-                i += 1
-                j += 1
         cv2.imwrite('Doormen/Doorman'+str(i)+'.png',image)
         take_foto = False
-    else :
-        for (x,y,w,h) in faces:
-            cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),1)
-            roi_gray = gray[y:y+h, x:x+w]
-            roi_color = image[y:y+h, x:x+w]
-            if h>50 and j<6:
-                take_foto=True
-                i += 1
-                j += 1
     
     if (sec%wait_sec) == 0 and j == 6:
         sec_prev = sec
@@ -66,7 +49,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         mail()
     
     # Display the resulting frame
-
+    for (x,y,w,h) in faces:
+         cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),1)
+         roi_gray = gray[y:y+h, x:x+w]
+         roi_color = image[y:y+h, x:x+w]
+         if h>50 and j<6:
+            take_foto=True
+            i += 1
+            j += 1
         
     # Show the frame
     cv2.imshow("Doorcam", image)
@@ -78,4 +68,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # If the `q` key was pressed, break from the loop
     if (not GPIO.input(22)):
         break
+        
+
         
