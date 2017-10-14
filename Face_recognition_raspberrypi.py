@@ -3,7 +3,7 @@ from picamera import PiCamera
 import cv2
 import time
 import RPi.GPIO as GPIO
-import sendmail
+from sendmail import mail
 
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)

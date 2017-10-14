@@ -42,5 +42,4 @@ def mail():
     mailServer.ehlo()
     mailServer.login(gmail_user, gmail_pwd)
     mailServer.sendmail(gmail_user, recipients, msg.as_string())
-    # Should be mailServer.quit(), but that crashes...
     mailServer.close()
