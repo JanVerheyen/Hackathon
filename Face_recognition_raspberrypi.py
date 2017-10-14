@@ -67,6 +67,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
      
     # If the `q` key was pressed, break from the loop
     if (not GPIO.input(22)):
+        i = 0
+        j = 0
         break
         
 

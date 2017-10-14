@@ -10,6 +10,7 @@ def mail():
     #Set up crap for the attachments
     files = "Doormen/"
     filenames = [os.path.join(files, f) for f in os.listdir(files)]
+    sorted(filenames)
     filenames = filenames[-5:]
     #print filenames
         
