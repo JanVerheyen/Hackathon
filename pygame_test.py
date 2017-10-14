@@ -33,7 +33,6 @@ reso = (320,240)
 screen = pg.display.set_mode(reso)
 
 running = True
-clock = pg.time.Clock()
 
 while running:
     for event in pg.event.get():
@@ -48,4 +47,4 @@ while running:
     screen.blit(arrow_button, (5, 180))
     
     pg.display.flip()
-    clock.tick(1)
+    
