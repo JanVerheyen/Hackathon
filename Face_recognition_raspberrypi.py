@@ -15,7 +15,7 @@ def sendUI_update(image_name):
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 # Initialise camera
@@ -52,7 +52,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if (sec%wait_sec) == 0 and j == 6:
         sec_prev = sec
         j = 0
-        sendUI_update('Doormen/Doorman'+str(i)+'.png')
+        sendUI_update('Doormen/Doorman'+str(i-1)+'.png')
         # Send dat mail
         mail()
     

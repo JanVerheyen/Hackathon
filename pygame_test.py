@@ -21,7 +21,7 @@ def scale_icon(image_name):
     return pg.transform.smoothscale(pg.image.load(im_dir + image_name), (20,20))
     
 def file_not_empty(file_name):
-    if(os.stat("file").st_size == 0):
+    if(os.stat(file_name).st_size == 0):
         return False
     else:
         return True
