@@ -8,7 +8,6 @@ Created on Sun Oct 15 06:14:16 2017
 import pygame as pg
 import os
 import RPi.GPIO as GPIO
-import picamera
 from time import sleep
 
 GPIO.setmode(GPIO.BCM)
@@ -20,6 +19,19 @@ GPIO.setup(23, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 def scale_icon(image_name):
     im_dir = "Icons/"
     return pg.transform.smoothscale(pg.image.load(im_dir + image_name), (20,20))
+    
+def file_not_empty(file_name):
+    if(os.stat("file").st_size == 0):
+        return False
+    else:
+        return True
+        
+def read_file_name(file_n):
+    file_s = open(file_n, 'r')
+    file_name = file_s.readline()
+    file_s.close()
+    open(file_n, 'w').close()
+    return file_name
     
 pg.init()
 pg.display.set_caption("Door Camera")
@@ -44,14 +56,13 @@ while running:
                     running = False
     if (not GPIO.input(27)):
         running = False
+    
     if (not GPIO.input(17)):
-        with picamera.PiCamera() as camera:
-            camera.resolution = (1024, 768)
-            #camera.start_preview()
-    # Camera warm-up time
-            sleep(1)
-            camera.capture('foo.jpg', resize=(320, 240))
-        camera_cap = pg.image.load('foo.jpg')
+        pass
+    
+    if (file_not_empty('UI_update.txt')):
+        img_name = read_file_name('UI_update.txt')
+        camera_cap = pg.image.load(img_name)
         screen.blit(camera_cap, (25,0))
         pg.display.flip()
         

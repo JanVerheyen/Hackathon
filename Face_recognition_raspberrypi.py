@@ -5,6 +5,13 @@ import time
 import RPi.GPIO as GPIO
 from sendmail import mail
 
+def sendUI_update(image_name):
+    file = open('UI_update.txt','w')
+    file.write(image_name)
+    file.close()
+    
+
+
 # Initialise GPIO
 GPIO.setmode(GPIO.BCM)
 
@@ -45,6 +52,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if (sec%wait_sec) == 0 and j == 6:
         sec_prev = sec
         j = 0
+        sendUI_update('Doormen/Doorman'+str(i)+'.png')
         # Send dat mail
         mail()
     
