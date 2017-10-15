@@ -67,14 +67,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             j += 1
         
     # Show the frame
-    cv2.imshow("Doorcam", image)
+    #cv2.imshow("Doorcam", image)
     key = cv2.waitKey(1) & 0xFF
      
     # Clear the stream in preparation for the next frame
     rawCapture.truncate(0)
      
     # If the `q` key was pressed, break from the loop
-    if (not GPIO.input(22)):
+    if (not GPIO.input(27)):
         i = 0
         j = 0
         break
