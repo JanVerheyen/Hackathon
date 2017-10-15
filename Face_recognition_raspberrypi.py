@@ -47,12 +47,12 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # Take foto when createria are met
     if take_foto==True and j<6:
         cv2.imwrite('Doormen/Doorman'+str(i)+'.png',image)
+        sendUI_update('Doormen/Doorman'+str(i)+'.png')
         take_foto = False
     
     if (sec%wait_sec) == 0 and j == 6:
         sec_prev = sec
         j = 0
-        sendUI_update('Doormen/Doorman'+str(i-1)+'.png')
         # Send dat mail
         mail()
     
