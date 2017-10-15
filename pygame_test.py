@@ -50,6 +50,7 @@ pg.display.toggle_fullscreen()
 running = True
 screen.fill((255, 255, 255))
 pg.display.flip()
+i = 0
 while running:
     for event in pg.event.get():
                 if (event.type == pg.QUIT):
@@ -58,7 +59,15 @@ while running:
         running = False
     
     if (not GPIO.input(17)):
-        pass
+        image_files = os.listdir('Doormen/')
+        storage_cap = pg.image.load('Doormen/' + image_files[i])
+        screen.blit(storage_cap, (25,0))
+        pg.display.flip()
+        i += 1
+        if len(image_files) > i:
+            i = 0
+        sleep(0.1)
+        
     
     if (file_not_empty('UI_update.txt')):
         img_name = read_file_name('UI_update.txt')
