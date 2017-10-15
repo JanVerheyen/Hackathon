@@ -64,7 +64,7 @@ while running:
         screen.blit(storage_cap, (25,0))
         pg.display.flip()
         i += 1
-        if len(image_files) > i:
+        if len(image_files) < i:
             i = 0
         sleep(0.1)
         
